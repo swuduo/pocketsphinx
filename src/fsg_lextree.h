@@ -60,7 +60,7 @@ extern "C" {
  * Make it smaller (2) to save memory if your phoneset has less than
  * 64 phones.
  */
-#define FSG_PNODE_CTXT_BVSZ	4
+#define FSG_PNODE_CTXT_BVSZ	8
 
 typedef struct fsg_pnode_ctxt_s {
     uint32 bv[FSG_PNODE_CTXT_BVSZ];
@@ -175,6 +175,16 @@ typedef struct fsg_pnode_s {
      ((src)->bv[1] = (~((sub)->bv[1]) & (src)->bv[1]))  | \
      ((src)->bv[2] = (~((sub)->bv[2]) & (src)->bv[2]))  | \
      ((src)->bv[3] = (~((sub)->bv[3]) & (src)->bv[3])))
+#elif (FSG_PNODE_CTXT_BVSZ == 8)
+    #define FSG_PNODE_CTXT_SUB(src,sub) \
+    (((src)->bv[0] = (~((sub)->bv[0]) & (src)->bv[0]))  | \
+     ((src)->bv[1] = (~((sub)->bv[1]) & (src)->bv[1]))  | \
+     ((src)->bv[2] = (~((sub)->bv[2]) & (src)->bv[2]))  | \
+     ((src)->bv[3] = (~((sub)->bv[3]) & (src)->bv[3]))  | \
+     ((src)->bv[4] = (~((sub)->bv[4]) & (src)->bv[4]))  | \
+     ((src)->bv[5] = (~((sub)->bv[5]) & (src)->bv[5]))  | \
+     ((src)->bv[6] = (~((sub)->bv[6]) & (src)->bv[6]))  | \
+     ((src)->bv[7] = (~((sub)->bv[7]) & (src)->bv[7])))
 #else
     #define FSG_PNODE_CTXT_SUB(src,sub) fsg_pnode_ctxt_sub_generic((src),(sub))
 #endif
